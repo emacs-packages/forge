@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-* v0.6.4    UNRELEASED
+* v0.6.4    2026-04-08
 
 - Improved the fallback default when reading the target branch for
   a pull-request.  57b015f6e
