@@ -1,4 +1,27 @@
 # -*- mode: org -*-
+* v0.6.4    UNRELEASED
+
+- Improved the fallback default when reading the target branch for
+  a pull-request.  57b015f6e
+
+- Fixed updating the prompt and listing of available choices after
+  expanding the set of completion choices.  5c00a3820, 68eabd05c
+
+- Added ~forge-mark-completed-topics-as-done~ to the topic and topics
+  menus.  c27fcfe36
+
+- Beside ~C-u RET~, ~C-u C-RET~ can now also be used to visit the topic
+  at point and at the same time display the topic menu.  b372fadba
+
+- Added a kludge to work around an issue in Helm.  That has been
+  fixed in Helm as well, but no version containing that fix has
+  been released yet.  https://github.com/emacs-helm/helm/issues/2744
+
+- Fixed fetching individual topics.  #830
+
+- When reading a topic and lifting the selection limit based on state,
+  also lift the limit based on absolute number of topics.  7d06a0ddc
+
 * v0.6.3    2026-01-01
 
 - By default ~forge-fork~ now only forks the default branch on Github.
