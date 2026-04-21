@@ -95,7 +95,7 @@
           emoji
           isAnswerable
           description)
-       (  discussions [(:edges t)
+       (  discussions [(:edges 20)
                        (:singular discussion number)
                        (orderBy ((field UPDATED_AT) (direction DESC)))]
           number
@@ -120,7 +120,7 @@
              createdAt
              updatedAt
              body
-             (  replies [(:edges 20)]
+             (  replies [(:edges t)]
                 id
                 databaseId
                 (author login)
