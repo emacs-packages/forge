@@ -98,9 +98,9 @@
        (  discussions [(:edges t)
                        (:singular discussion number)
                        (orderBy ((field UPDATED_AT) (direction DESC)))]
+          number
           id
           databaseId
-          number
           url
           stateReason
           ;; Discussions lack isReadByViewer.
