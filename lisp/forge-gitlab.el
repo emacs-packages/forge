@@ -600,7 +600,7 @@
 (cl-defmethod forge--fork-repository ((repo forge-gitlab-repository) fork _all)
   (with-slots (name apihost) repo
     (forge--glab-post repo "/projects/:project/fork"
-      (and (not (equal fork (ghub--username apihost 'gitlab)))
+      (and (not (equal fork (ghub--username repo)))
            `((namespace . ,fork)))
       :noerror t)
     (ghub-wait (format "/projects/%s%%2F%s" (string-replace "/" "%2F" fork) name)

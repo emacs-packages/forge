@@ -518,8 +518,11 @@ forges and hosts."
     (unless (forge-repository-equal (forge-get-repository :stub?) repo)
       (when-let ((worktree (forge-get-worktree repo)))
         (setq default-directory worktree)))
-    (cl-call-next-method (oref repo apihost)
-                         (forge--ghub-type-symbol (eieio-object-class repo)))))
+    (with-slots (apihost) repo
+      (cl-call-next-method
+       (caddr (car (cl-member apihost forge-alist :test #'equal :key #'cadr)))
+       (forge--ghub-type-symbol (eieio-object-class repo))
+       apihost))))
 
 (defun forge--ghub-type-symbol (class)
   (pcase-exhaustive class

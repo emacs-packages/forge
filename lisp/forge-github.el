@@ -1266,7 +1266,7 @@
 (cl-defmethod forge--fork-repository ((repo forge-github-repository) fork all)
   (with-slots (name apihost) repo
     (forge-rest repo "POST" "/repos/:owner/:name/forks"
-      ((and (not (equal fork (ghub--username apihost)))
+      ((and (not (equal fork (ghub--username repo)))
             (organization fork))
        (default-branch-only (not all))))
     (ghub-wait (format "/repos/%s/%s" fork name)

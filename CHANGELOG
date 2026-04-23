@@ -4,6 +4,8 @@
 - Fixed a pagination bug, which could completely prevent pulling API
   data for certain Github repositories.  #843
 
+- Fixed username lookup to work as documented.  #796
+
 * v0.6.4    2026-04-08
 
 - Improved the fallback default when reading the target branch for
