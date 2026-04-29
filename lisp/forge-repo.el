@@ -461,18 +461,6 @@ forges and hosts."
 
 ;;; Miscellaneous
 
-(defun forge--as-githost (host)
-  (or (car (car (cl-member host forge-alist :test #'equal :key #'car)))
-      (car (car (cl-member host forge-alist :test #'equal :key #'cadr)))
-      (car (car (cl-member host forge-alist :test #'equal :key #'caddr)))
-      (user-error "Cannot determine githost for %S" host)))
-
-(defun forge--as-apihost (host)
-  (or (cadr (car (cl-member host forge-alist :test #'equal :key #'cadr)))
-      (cadr (car (cl-member host forge-alist :test #'equal :key #'car)))
-      (cadr (car (cl-member host forge-alist :test #'equal :key #'caddr)))
-      (user-error "Cannot determine apihost for %S" host)))
-
 (cl-defmethod forge--format ((repo forge-repository) format-or-slot &optional spec)
   (pcase-let* (((eieio (forge webhost) owner name) repo)
                (path (if owner (concat owner "/" name) name)))
@@ -509,6 +497,18 @@ forges and hosts."
                 (concat " " (propertize msg 'font-lock-face
                                         'magit-mode-line-process)))))
       (force-mode-line-update t))))
+
+(defun forge--as-githost (host)
+  (or (car (car (cl-member host forge-alist :test #'equal :key #'car)))
+      (car (car (cl-member host forge-alist :test #'equal :key #'cadr)))
+      (car (car (cl-member host forge-alist :test #'equal :key #'caddr)))
+      (user-error "Cannot determine githost for %S" host)))
+
+(defun forge--as-apihost (host)
+  (or (cadr (car (cl-member host forge-alist :test #'equal :key #'cadr)))
+      (cadr (car (cl-member host forge-alist :test #'equal :key #'car)))
+      (cadr (car (cl-member host forge-alist :test #'equal :key #'caddr)))
+      (user-error "Cannot determine apihost for %S" host)))
 
 (cl-defmethod ghub--host ((repo forge-repository))
   (cl-call-next-method (forge--ghub-type-symbol (eieio-object-class repo))))
