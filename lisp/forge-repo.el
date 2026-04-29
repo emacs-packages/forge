@@ -502,13 +502,13 @@ forges and hosts."
   (or (car (car (cl-member host forge-alist :test #'equal :key #'car)))
       (car (car (cl-member host forge-alist :test #'equal :key #'cadr)))
       (car (car (cl-member host forge-alist :test #'equal :key #'caddr)))
-      (user-error "Cannot determine githost for %S" host)))
+      (error "Cannot determine githost for %S" host)))
 
 (defun forge--as-apihost (host)
   (or (cadr (car (cl-member host forge-alist :test #'equal :key #'cadr)))
       (cadr (car (cl-member host forge-alist :test #'equal :key #'car)))
       (cadr (car (cl-member host forge-alist :test #'equal :key #'caddr)))
-      (user-error "Cannot determine apihost for %S" host)))
+      (error "Cannot determine apihost for %S" host)))
 
 (cl-defmethod ghub--host ((repo forge-repository))
   (cl-call-next-method (forge--ghub-type-symbol (eieio-object-class repo))))
