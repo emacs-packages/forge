@@ -510,6 +510,17 @@ forges and hosts."
       (cadr (car (cl-member host forge-alist :test #'equal :key #'caddr)))
       (error "Cannot determine apihost for %S" host)))
 
+(defun forge--as-webhost (host &optional noerror)
+  (or (caddr (car (cl-member host forge-alist :test #'equal :key #'cadr)))
+      (caddr (car (cl-member host forge-alist :test #'equal :key #'car)))
+      (caddr (car (cl-member host forge-alist :test #'equal :key #'caddr)))
+      (and (not noerror)
+           (error "Cannot determine webhost for %S" host))))
+
+(defun forge--host-id (host)
+  (or (forge--as-webhost host t)
+      (error "Cannot determine identifier for %S" host)))
+
 (cl-defmethod ghub--host ((repo forge-repository))
   (cl-call-next-method (forge--ghub-type-symbol (eieio-object-class repo))))
 
@@ -519,10 +530,9 @@ forges and hosts."
       (when-let ((worktree (forge-get-worktree repo)))
         (setq default-directory worktree)))
     (with-slots (apihost) repo
-      (cl-call-next-method
-       (caddr (car (cl-member apihost forge-alist :test #'equal :key #'cadr)))
-       (forge--ghub-type-symbol (eieio-object-class repo))
-       apihost))))
+      (cl-call-next-method (forge--host-id apihost)
+                           (forge--ghub-type-symbol (eieio-object-class repo))
+                           apihost))))
 
 (defun forge--ghub-type-symbol (class)
   (pcase-exhaustive class
