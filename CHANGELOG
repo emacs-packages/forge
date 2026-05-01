@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-* v0.6.5    UNRELEASED
+* v0.6.5    2026-05-01
 
 - Fixed a pagination bug, which could completely prevent pulling API
   data for certain Github repositories.  #843
